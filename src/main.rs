@@ -23,9 +23,15 @@ fn ustalenie_ocen_z_rzutow(ilosc_oczek_w_rzutach: &[u8]) -> Vec<&str> {
     let mut oceny: Vec<&str> = Vec::new();
     for element in ilosc_oczek_w_rzutach.iter() {
         let ocena_res = ocena(element.clone());
-        let ocena: &str = ocena_res.unwrap_or("0");
+        let ocena: &str = ocena_res.unwrap_or_else(|err| { 
+            match err {
+                ErrType::ThrowAgain(e) => println!("{}", e),
+                ErrType::IncorrectStitches(e) => println!("{}", e)
+            };
+            return "0"
+        });
         if ocena.eq("0") {
-            println!("Wypadła 6 lub niepoprawna liczba oczek");
+            //println!("Wypadła 6 lub niepoprawna liczba oczek");
             continue;
         }
         oceny.push(ocena);
