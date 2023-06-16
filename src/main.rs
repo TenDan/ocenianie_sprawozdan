@@ -18,7 +18,23 @@ fn ocena(ilosc_oczek: u8) -> Result<&'static str, ErrType> {
     }
 }
 
+// Oceny ze sprawozdania podane jako tablica ocen
+fn ustalenie_ocen_z_rzutow(ilosc_oczek_w_rzutach: &[u8]) -> Vec<&str> {
+    let mut oceny: Vec<&str> = Vec::new();
+    for element in ilosc_oczek_w_rzutach.iter() {
+        let ocena_res = ocena(element.clone());
+        let ocena: &str = ocena_res.unwrap_or("0");
+        if ocena.eq("0") {
+            println!("Wypadła 6 lub niepoprawna liczba oczek");
+            continue;
+        }
+        oceny.push(ocena);
+    }
+    return oceny.clone();
+}
+
 fn main() {
+    /*
     let mut ilosc_oczek = String::new();
     print!("Wprowadź liczbę oczek (od 1 do 6): ");
     let _ = io::stdout().flush();
@@ -37,5 +53,9 @@ fn main() {
                 ErrType::IncorrectStitches(err) => println!("{}", err)
             }
         }
+    }
+    */
+    for element in ustalenie_ocen_z_rzutow(&[2, 3, 6, 1]) {
+        println!("Ocena ze sprawozdania: {}", element);
     }
 }
