@@ -25,8 +25,8 @@ fn main() {
     io::stdin()
         .read_line(&mut ilosc_oczek)
         .expect("Nie udało się pobrać ilości oczek");
-    let ocena = ocena(ilosc_oczek.trim().parse::<u8>().unwrap_or_else(|_x| { 
-        println!("To nie jest liczba!");
+    let ocena = ocena(ilosc_oczek.trim().parse::<u8>().unwrap_or_else(|x| { 
+        println!("Błąd przy przetworzeniu liczby: {}", x);
         return 0;
     }));
     match ocena {
